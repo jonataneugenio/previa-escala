@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Escala de Janeiro 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #222222;
+      --text-muted: #666666;
+      --card-bg: #f7f7f7;
+      --border: #dddddd;
+      --accent: #000000;
+      --solo: #000000;
+      --apoio: #555555;
+      --inst: #333333;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    header {
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .badge-mes {
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: #eaeaea;
+      color: #333;
+      border: 1px solid #d0d0d0;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-solo { background: var(--solo); }
+    .dot-apoio { background: var(--apoio); }
+    .dot-inst { background: var(--inst); }
+
+    .day-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details.day-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    summary.day-header {
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .day-date-main {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .day-date-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .chevron {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      transition: 0.2s;
+    }
+
+    details[open] .chevron {
+      transform: rotate(90deg);
+    }
+
+    .day-body {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .culto-block {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .culto-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .culto-nome {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .culto-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .role-group-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .person-pill {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fafafa;
+      font-size: 0.8rem;
+      display: inline-flex;
+      flex-direction: column;
+    }
+
+    .person-pill small {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .empty-pill {
+      background: #f0f0f0;
+      color: #999;
+      font-style: italic;
+    }
+
+    .footer-info {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <h1>Escala Ministério de Louvor</h1>
+      <span class="badge-mes">Janeiro / 2026</span>
+      <p class="subtitle">Toque em uma data para visualizar os detalhes da escala.</p>
+
+      <div class="legend">
+        <span class="legend-item"><span class="dot dot-solo"></span> Solo / Ministro(a)</span>
+        <span class="legend-item"><span class="dot dot-apoio"></span> Apoio / Backing</span>
+        <span class="legend-item"><span class="dot dot-inst"></span> Instrumental</span>
+      </div>
+    </header>
+
+    <main class="day-list">
+
+      <!-- 01/04/2026 - Santa Ceia -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/04/2026</div>
+            <div class="day-date-sub">Santa Ceia</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Santa Ceia</span>
+              <span class="culto-tag">Escala do ministério</span>
+            </div>
+            <div class="role-group-label">Equipe</div>
+            <div class="pills-row">
+              <span class="person-pill empty-pill">A definir</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/06/2026 - Profetizando 2026 -->
+      <details class="day-card" open>
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/06/2026</div>
+            <div class="day-date-sub">Profetizando 2026</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Profetizando 2026</span>
+              <span class="culto-tag">Culto especial</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Nwohaynne<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Sarah<br><small>Ministro(a) de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Denise<br><small>Backing vocal</small></span>
+              <span class="person-pill">Isabella<br><small>Backing vocal</small></span>
+              <span class="person-pill">Lara<br><small>Backing vocal</small></span>
+              <span class="person-pill">Cristiano<br><small>Backing vocal</small></span>
+              <span class="person-pill">Ronny<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Daniel<br><small>Guitarra</small></span>
+              <span class="person-pill">Washington<br><small>Violão</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/07/2026 - Profetizando 2026 -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/07/2026</div>
+            <div class="day-date-sub">Profetizando 2026</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Profetizando 2026</span>
+              <span class="culto-tag">Culto especial</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sérgio<br><small>Ministro de Louvor</small></span>
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Stefanea<br><small>Backing vocal</small></span>
+              <span class="person-pill">Débora<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+              <span class="person-pill">Lara<br><small>Backing vocal</small></span>
+              <span class="person-pill">Denise<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Washington<br><small>Violão</small></span>
+              <span class="person-pill">Daniel<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/08/2026 - Profetizando 2026 -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/08/2026</div>
+            <div class="day-date-sub">Profetizando 2026</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Profetizando 2026</span>
+              <span class="culto-tag">Culto especial</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Luciana<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sérgio<br><small>Backing vocal</small></span>
+              <span class="person-pill">Sarah<br><small>Backing vocal</small></span>
+              <span class="person-pill">Débora<br><small>Backing vocal</small></span>
+              <span class="person-pill">Isabella<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Washington<br><small>Violão</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/11/2026 - Culto de Celebração -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/11/2026</div>
+            <div class="day-date-sub">Culto de Celebração</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto de Celebração</span>
+              <span class="culto-tag">Manhã / Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sérgio<br><small>Backing vocal</small></span>
+              <span class="person-pill">Cristiano (Manhã)<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Washington<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill empty-pill">Baixo — A definir</span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/13/2026 - EDP - Escola da Palavra -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/13/2026</div>
+            <div class="day-date-sub">EDP - Escola da Palavra</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">EDP - Escola da Palavra</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Luciana<br><small>Ministro(a) de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sarah<br><small>Backing vocal</small></span>
+              <span class="person-pill">Cristiano<br><small>Backing vocal</small></span>
+              <span class="person-pill">Luciana<br><small>Backing vocal</small></span>
+              <span class="person-pill">Lara<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Márcio<br><small>Bateria</small></span>
+              <span class="person-pill">Washington<br><small>Guitarra</small></span>
+              <span class="person-pill empty-pill">Baixo — A definir</span>
+              <span class="person-pill">Isabella<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/15/2026 - Culto da Vitória -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/15/2026</div>
+            <div class="day-date-sub">Culto da Vitória</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto da Vitória</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Denise<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Isabella<br><small>Backing vocal</small></span>
+              <span class="person-pill">Nwohaynne<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Washington<br><small>Guitarra</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Isabella<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/18/2026 - Culto de Celebração -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/18/2026</div>
+            <div class="day-date-sub">Culto de Celebração</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto de Celebração</span>
+              <span class="culto-tag">Manhã / Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Denise<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Luciana<br><small>Ministro(a) de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <!-- Houve uma linha com ano 2025 na planilha, mantive o nome normalmente -->
+              <span class="person-pill">Nwohaynne<br><small>Backing vocal</small></span>
+              <span class="person-pill">Cristiano (Manhã)<br><small>Backing vocal</small></span>
+              <span class="person-pill">Sérgio<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Washington<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/20/2026 - EDP - Escola da Palavra -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/20/2026</div>
+            <div class="day-date-sub">EDP - Escola da Palavra</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">EDP - Escola da Palavra</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sarah<br><small>Backing vocal</small></span>
+              <span class="person-pill">Ronny<br><small>Backing vocal</small></span>
+              <span class="person-pill">Lara<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Isabella<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/22/2026 - Culto da Vitória -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/22/2026</div>
+            <div class="day-date-sub">Culto da Vitória</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto da Vitória</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Denise<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Luciana<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Washington<br><small>Guitarra</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/25/2026 - Culto de Celebração -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/25/2026</div>
+            <div class="day-date-sub">Culto de Celebração</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto de Celebração</span>
+              <span class="culto-tag">Manhã / Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Sérgio<br><small>Backing vocal</small></span>
+              <span class="person-pill">Cristiano (Manhã)<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Washington<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Márcio (Manhã)<br><small>Baixo</small></span>
+              <span class="person-pill">Isabella<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/27/2026 - EDP - Escola da Palavra -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/27/2026</div>
+            <div class="day-date-sub">EDP - Escola da Palavra</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">EDP - Escola da Palavra</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Isabella<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny (Avaliar dar folga)<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Luciana<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana (Avaliar dar folga)<br><small>Backing vocal</small></span>
+              <span class="person-pill">Sarah<br><small>Backing vocal</small></span>
+              <span class="person-pill">Lara<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Márcio<br><small>Bateria</small></span>
+              <span class="person-pill">Sérgio<br><small>Guitarra</small></span>
+              <span class="person-pill">Washington<br><small>Baixo</small></span>
+              <span class="person-pill">Isabella<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 01/29/2026 - Culto da Vitória -->
+      <details class="day-card">
+        <summary class="day-header">
+          <div>
+            <div class="day-date-main">01/29/2026</div>
+            <div class="day-date-sub">Culto da Vitória</div>
+          </div>
+          <div class="chevron">›</div>
+        </summary>
+        <div class="day-body">
+          <div class="culto-block">
+            <div class="culto-header">
+              <span class="culto-nome">Culto da Vitória</span>
+              <span class="culto-tag">Noite</span>
+            </div>
+
+            <div class="role-group-label">Vocal (Solo)</div>
+            <div class="pills-row">
+              <span class="person-pill">Luciana<br><small>Ministro(a) de Louvor</small></span>
+              <span class="person-pill">Ronny<br><small>Ministro de Louvor</small></span>
+            </div>
+
+            <div class="role-group-label">Vocal (Apoio)</div>
+            <div class="pills-row">
+              <span class="person-pill">Nwohaynne<br><small>Backing vocal</small></span>
+              <span class="person-pill">Fabiana<br><small>Backing vocal</small></span>
+            </div>
+
+            <div class="role-group-label">Instrumental</div>
+            <div class="pills-row">
+              <span class="person-pill">Igor<br><small>Bateria</small></span>
+              <span class="person-pill">Washington<br><small>Guitarra</small></span>
+              <span class="person-pill">Márcio<br><small>Baixo</small></span>
+              <span class="person-pill">Jonatan<br><small>Teclado</small></span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </main>
+
+    <p class="footer-info">
+      Caso encontre algum erro de nome ou data, atualize a planilha original e gere uma nova versão desta página.
+    </p>
+  </div>
+</body>
+</html>
